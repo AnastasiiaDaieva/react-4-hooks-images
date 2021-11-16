@@ -1,19 +1,34 @@
 import React, { Component } from 'react';
 import s from 'components/Searchbar/Searchbar.module.css';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 class Searchbar extends Component {
   state = {
-    query: '',
+    searchQuery: '',
   };
   handleSubmit = e => {
     e.preventDefault();
-    this.props.onSubmit(this.state.query);
+    if (this.state.searchQuery.trim() === '') {
+      toast.error('Please type the query', {
+        position: 'top-right',
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      return;
+    }
+    this.props.onSubmit(this.state.searchQuery);
+    this.setState({ searchQuery: '' });
   };
 
   handleQueryChange = e => {
-    this.setState({ query: e.currentTarget.value.toLowerCase() });
+    this.setState({ searchQuery: e.currentTarget.value.toLowerCase() });
   };
   render() {
+    const { searchQuery } = this.state;
     return (
       <header className={s.Searchbar}>
         <form className={s.SearchForm} onSubmit={this.handleSubmit}>
@@ -27,6 +42,8 @@ class Searchbar extends Component {
             autoComplete="off"
             autoFocus
             placeholder="Search images and photos"
+            name="searchQuery"
+            value={searchQuery}
             onChange={this.handleQueryChange}
           />
         </form>
