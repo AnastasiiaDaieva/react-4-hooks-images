@@ -1,18 +1,17 @@
-import React, { Component } from 'react';
+import React from 'react';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
+import s from 'components/ImageGallery/ImageGallery.module.css';
 
 import Loader from 'react-loader-spinner';
-export default class AppLoader extends React.Component {
-  //other logic
-  render() {
-    return (
-      <Loader
-        type="Puff"
-        color="#00BFFF"
-        height={100}
-        width={100}
-        timeout={3000} //3 secs
-      />
-    );
-  }
+export default function AppLoader() {
+  return (
+    <Loader
+      className={s.loader}
+      type="TailSpin"
+      color="#3f51b5"
+      height={80}
+      width={80}
+      timeout={3000}
+    />
+  );
 }

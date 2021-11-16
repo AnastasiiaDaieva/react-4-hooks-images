@@ -1,6 +1,6 @@
 const API_KEY = '23531219-4793e7ad626a6d166b9f03b8c';
 
-export default {
+const api = {
   pageNumber: 1,
   async fetchImages(searchQuery) {
     const url = `https://pixabay.com/api/?q=${searchQuery}&page=${this.pageNumber}&key=${API_KEY}&image_type=photo&orientation=horizontal&per_page=12`;
@@ -17,9 +17,8 @@ export default {
         // console.log(data.hits);
 
         this.pageNumber += 1;
-        console.log(this.pageNumber);
 
-        return data.hits;
+        return data;
       })
       .catch(error => console.log(error));
   },
@@ -28,3 +27,5 @@ export default {
     this.pageNumber = 1;
   },
 };
+
+export default api;

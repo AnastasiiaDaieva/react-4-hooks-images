@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import s from 'components/ImageGalleryItem/ImageGalleryItem.module.css';
 import { Modal } from 'components/Modal/Modal';
-import { render } from '@testing-library/react';
 
 class ImageGalleryItem extends Component {
   state = { showModal: false };

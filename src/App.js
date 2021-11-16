@@ -2,11 +2,12 @@ import './App.css';
 import React, { Component } from 'react';
 import { Searchbar } from 'components/Searchbar/Searchbar';
 import { ImageGallery } from 'components/ImageGallery/ImageGallery';
+import { Button } from 'components/Button/Button';
+import api from 'services/api';
 import { ToastContainer } from 'react-toastify';
 
 class App extends Component {
   state = {
-    hits: [],
     searchQuery: '',
   };
   handleFormSubmit = searchQuery => {
@@ -19,7 +20,7 @@ class App extends Component {
     return (
       <div className="App">
         <Searchbar onSubmit={this.handleFormSubmit} />
-        <ImageGallery searchQuery={searchQuery} />
+        {/* <ImageGallery searchQuery={searchQuery} /> */}
         <ToastContainer />
       </div>
     );
