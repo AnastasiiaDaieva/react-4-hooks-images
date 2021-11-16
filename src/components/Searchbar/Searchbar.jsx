@@ -50,10 +50,6 @@ class Searchbar extends Component {
             />
           </form>
         </header>
-        <ImageGallery
-          searchQuery={searchQuery}
-          onClick={this.handleQueryChange}
-        />
       </>
     );
   }

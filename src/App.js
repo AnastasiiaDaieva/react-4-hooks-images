@@ -15,12 +15,19 @@ class App extends Component {
     console.log(searchQuery);
   };
 
+  // handleQueryChange = e => {
+  //   this.setState({ searchQuery: ?});
+  // };
+
   render() {
     const { searchQuery } = this.state;
     return (
       <div className="App">
         <Searchbar onSubmit={this.handleFormSubmit} />
-        {/* <ImageGallery searchQuery={searchQuery} /> */}
+        <ImageGallery
+          searchQuery={searchQuery}
+          onClick={this.handleQueryChange}
+        />
         <ToastContainer />
       </div>
     );
