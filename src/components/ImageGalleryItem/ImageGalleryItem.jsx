@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
+
 import s from 'components/ImageGalleryItem/ImageGalleryItem.module.css';
+
+import PropTypes from 'prop-types';
+
 import { Modal } from 'components/Modal/Modal';
 
 class ImageGalleryItem extends Component {
@@ -32,5 +36,12 @@ class ImageGalleryItem extends Component {
     );
   }
 }
+
+ImageGalleryItem.propTypes = {
+  dataOriginal: PropTypes.string,
+  id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  source: PropTypes.string,
+  description: PropTypes.string,
+};
 
 export { ImageGalleryItem };

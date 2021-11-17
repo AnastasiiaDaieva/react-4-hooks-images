@@ -1,8 +1,9 @@
 import React from 'react';
-import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import s from 'components/ImageGallery/ImageGallery.module.css';
 
+import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import Loader from 'react-loader-spinner';
+
 export default function AppLoader() {
   return (
     <Loader

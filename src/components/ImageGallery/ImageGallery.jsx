@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
-import s from 'components/ImageGallery/ImageGallery.module.css';
-import { ImageGalleryItem } from 'components/ImageGalleryItem/ImageGalleryItem';
-import api from 'services/api';
-import { Button } from 'components/Button/Button';
 
+import PropTypes from 'prop-types';
+
+import s from 'components/ImageGallery/ImageGallery.module.css';
+
+import { ImageGalleryItem } from 'components/ImageGalleryItem/ImageGalleryItem';
+import { Button } from 'components/Button/Button';
 import AppLoader from 'components/Loader/AppLoader';
+import api from 'services/api';
+
 class ImageGallery extends Component {
   state = {
     hits: [],
@@ -17,6 +21,7 @@ class ImageGallery extends Component {
     const newQuery = this.props.searchQuery;
     const prevPage = prevState.page;
     const newPage = this.state.page;
+
     if (prevQuery !== newQuery) {
       this.setState({ loading: true, hits: [], page: 1 });
       api
@@ -26,21 +31,24 @@ class ImageGallery extends Component {
         .finally(() => this.setState({ loading: false }));
     }
 
-    if (prevPage !== newPage && prevQuery === newQuery) {
+    if (prevPage !== newPage) {
       api
         .fetchImages(prevQuery, this.state.page)
         .then(({ hits }) =>
-          this.setState({ hits: [...prevState.hits, ...hits] }),
-        );
+          this.setState(prevState => ({
+            hits: [...prevState.hits, ...hits],
+          })),
+        )
+        .catch(error => console.log(error));
     }
   }
 
   loadMore = () => {
     this.setState(prevState => ({ page: prevState.page + 1 }));
   };
+
   render() {
     const { hits, loading, totalHits } = this.state;
-    const { onClick } = this.props;
     return (
       <>
         {loading && <AppLoader />}
@@ -58,10 +66,18 @@ class ImageGallery extends Component {
           ))}
         </ul>
 
-        {hits.length > 0 && <Button onClick={this.loadMore}>Load more</Button>}
+        {hits.length > 0 && (
+          <Button id="loadmore" onClick={this.loadMore}>
+            Load more
+          </Button>
+        )}
       </>
     );
   }
 }
+
+ImageGallery.propTypes = {
+  searchQuery: PropTypes.string,
+};
 
 export { ImageGallery };

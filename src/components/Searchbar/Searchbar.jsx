@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
+
 import s from 'components/Searchbar/Searchbar.module.css';
+
+import PropTypes from 'prop-types';
+
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { ImageGallery } from 'components/ImageGallery/ImageGallery';
 
 class Searchbar extends Component {
   state = {
@@ -54,5 +57,9 @@ class Searchbar extends Component {
     );
   }
 }
+
+Searchbar.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+};
 
 export { Searchbar };
