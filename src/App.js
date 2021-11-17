@@ -26,7 +26,7 @@ class App extends Component {
         <Searchbar onSubmit={this.handleFormSubmit} />
         <ImageGallery
           searchQuery={searchQuery}
-          onClick={this.handleQueryChange}
+          // onClick={this.handleQueryChange}
         />
         <ToastContainer />
       </div>
