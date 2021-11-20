@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-
+import React, { Component, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import s from 'components/ImageGallery/ImageGallery.module.css';
@@ -7,7 +6,43 @@ import s from 'components/ImageGallery/ImageGallery.module.css';
 import { ImageGalleryItem } from 'components/ImageGalleryItem/ImageGalleryItem';
 import { Button } from 'components/Button/Button';
 import AppLoader from 'components/Loader/AppLoader';
-import api from 'services/api';
+import fetchImages from 'services/fetchImages';
+
+function OldImageGallery({ searchQuery }) {
+  const [hits, setHits] = useState([]);
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    fetchImages(searchQuery).then(console.log);
+    // .then(({ totalHits, hits }) => setHits({ hits }))
+    // .catch(error => console.log(error))
+    // .finally(() => setLoading(false));
+  }, []);
+
+  return (
+    <>
+      {/* {loading && <AppLoader />}
+          {totalHits === 0 && (
+            <div>Nothing was found on {this.props.searchQuery}</div>
+          )} */}
+      <ul className={s.ImageGallery}>
+        {/* {hits.map(({ id, webformatURL, tags, largeImageURL }) => (
+          <ImageGalleryItem
+            key={id}
+            source={webformatURL}
+            description={tags}
+            dataOriginal={largeImageURL}
+          />
+        ))} */}
+      </ul>
+
+      {hits.length > 0 && (
+        <Button id="loadmore" onClick={this.loadMore}>
+          Load more
+        </Button>
+      )}
+    </>
+  );
+}
 
 class ImageGallery extends Component {
   state = {
@@ -24,16 +59,14 @@ class ImageGallery extends Component {
 
     if (prevQuery !== newQuery) {
       this.setState({ loading: true, hits: [], page: 1 });
-      api
-        .fetchImages(newQuery, newPage)
+      fetchImages(newQuery, newPage)
         .then(({ totalHits, hits }) => this.setState({ totalHits, hits }))
         .catch(error => console.log(error))
         .finally(() => this.setState({ loading: false }));
     }
 
     if (prevPage !== newPage) {
-      api
-        .fetchImages(prevQuery, this.state.page)
+      fetchImages(prevQuery, this.state.page)
         .then(({ hits }) =>
           this.setState(prevState => ({
             hits: [...prevState.hits, ...hits],

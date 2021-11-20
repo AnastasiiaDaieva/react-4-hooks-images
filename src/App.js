@@ -1,12 +1,29 @@
 import './App.css';
 
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 
 import { Searchbar } from 'components/Searchbar/Searchbar';
 import { ImageGallery } from 'components/ImageGallery/ImageGallery';
 import { ToastContainer } from 'react-toastify';
 
-class App extends Component {
+function App() {
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const handleFormSubmit = searchQuery => {
+    setSearchQuery(searchQuery);
+    console.log(searchQuery);
+  };
+
+  return (
+    <div className="App">
+      <Searchbar onSubmit={handleFormSubmit} />
+      <ImageGallery searchQuery={searchQuery} />
+      <ToastContainer />
+    </div>
+  );
+}
+
+class OldApp extends Component {
   state = {
     searchQuery: '',
   };
