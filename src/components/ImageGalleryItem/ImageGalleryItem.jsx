@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import s from 'components/ImageGalleryItem/ImageGalleryItem.module.css';
@@ -29,37 +29,6 @@ function ImageGalleryItem({ id, source, description, dataOriginal }) {
       )}
     </>
   );
-}
-
-class oldImageGalleryItem extends Component {
-  state = { showModal: false };
-
-  toggleModal = () => {
-    this.setState(({ showModal }) => ({ showModal: !showModal }));
-  };
-
-  render() {
-    const { source, description, id, dataOriginal } = this.props;
-    const { showModal } = this.state;
-    return (
-      <>
-        <li key={id} className={s.ImageGalleryItem} onClick={this.toggleModal}>
-          <img
-            src={source}
-            alt={description}
-            className={s.ImageGalleryItem__image}
-          />
-        </li>
-        {showModal && (
-          <Modal
-            modalSource={dataOriginal}
-            modalDescription={description}
-            onClose={this.toggleModal}
-          />
-        )}
-      </>
-    );
-  }
 }
 
 ImageGalleryItem.propTypes = {
